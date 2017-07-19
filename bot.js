@@ -17,8 +17,9 @@ This is a sample Facebook bot built with Botkit.
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
 var env = require('node-env-file');
-env(__dirname + '/.env');
+env('/.env');
 
 
 if (!process.env.page_token) {
@@ -47,22 +48,22 @@ var controller = Botkit.facebookbot({
 });
 
 // Set up an Express-powered webserver to expose oauth and webhook endpoints
-var webserver = require(__dirname + '/components/express_webserver.js')(controller);
+var webserver = require('/components/express_webserver.js')(controller);
 
 // Tell Facebook to start sending events to this application
-require(__dirname + '/components/subscribe_events.js')(controller);
+require('/components/subscribe_events.js')(controller);
 
 // Set up Facebook "thread settings" such as get started button, persistent menu
-require(__dirname + '/components/thread_settings.js')(controller);
+require('/components/thread_settings.js')(controller);
 
 
 // Send an onboarding message when a user activates the bot
-require(__dirname + '/components/onboarding.js')(controller);
+require('/components/onboarding.js')(controller);
 
 // Enable Dashbot.io plugin
-require(__dirname + '/components/plugin_dashbot.js')(controller);
+require('/components/plugin_dashbot.js')(controller);
 
-var normalizedPath = require("path").join(__dirname, "skills");
+var normalizedPath = require("path").join("skills");
 require("fs").readdirSync(normalizedPath).forEach(function(file) {
   require("./skills/" + file)(controller);
 });
